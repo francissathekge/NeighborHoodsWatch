@@ -1,0 +1,20 @@
+.home-container {
+    position: relative;
+  }
+  
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  @media (max-width: 768px) {
+    .background-image {
+      background-image: url('../../images/8.jpeg');
+    }
+  }
