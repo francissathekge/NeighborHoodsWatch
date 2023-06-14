@@ -1,20 +1,49 @@
-.home-container {
-    position: relative;
-  }
-  
-  .background-image {
+.background {
+    background-image: url(../../public/images/8.jpeg);
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-size: cover;
+    background-size: 100% 100vh; /* Update background-size */
     background-position: center;
     background-repeat: no-repeat;
+    transition: background-image 0.5s ease; /* Add transition property */
+  }
+  .logo {
+    position: absolute;
+    background-image: url('../../public/images/7.png');
+    background-repeat: no-repeat;
+    height: 110px;
+    width: 250px;
+    transform: scale(0.8);
+   
+  }
+  .container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .containers {
+    position: absolute;
+    top: 3%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
   
+  .button {
+    margin-top: 1rem;
+  }
+  
+
+  
+  
   @media (max-width: 768px) {
-    .background-image {
-      background-image: url('../../images/8.jpeg');
+    .background {
+      background-image: url('https://wallpaperaccess.com/full/1750784.jpg');
+      background-size: cover; /* Apply cover for smaller screens */
     }
   }

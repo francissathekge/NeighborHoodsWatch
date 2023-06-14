@@ -1,17 +1,16 @@
 import React from 'react'
-import Home from '../../components/home'
+import Patrol from '../../components/patrol'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 
-function HomePage() {
+function Patrols() {
   return (
     <div>
-   
-      <Home/>
-
-
+      <Header/>
+      <Patrol/>
+      <Footer/>
     </div>
   )
 }
 
-export default HomePage
+export default Patrols

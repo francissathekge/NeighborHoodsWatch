@@ -1,0 +1,12 @@
+.logouticon {
+    position:"relative";
+    bottom:"400px";
+    background-color: transparent;
+    border: none;
+    color: #fb0000;
+    transition: background-color 0.3s;
+  }
+  
+  .logouticon:hover {
+    background-color: red;
+  }

@@ -1,11 +1,21 @@
 import React from 'react';
+import { Button } from 'antd';
 import styles from './home.module.css'; // Import the CSS module
 
 function Home() {
   return (
-    <div className={styles['home-container']}>
-      <div className={styles['background-image']} style={{ backgroundImage: "url('../../images/8.jpeg')" }} />
-      {/* Rest of your content */}
+    <div className={styles.background}>
+      <div className={styles.logo}></div>
+      <div className={styles.container}>
+        <Button className={styles.button} type="primary" size="large">
+          Sign up
+        </Button>
+      </div>
+      <div className={styles.containers}>
+        <Button className={styles.button} type="primary" size="large">
+          Sign in
+        </Button>
+      </div>
     </div>
   );
 }

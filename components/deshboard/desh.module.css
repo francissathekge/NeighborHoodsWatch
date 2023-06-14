@@ -1,0 +1,32 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Anybody&display=swap');
+.deshLayout {
+    height: 100vh;
+  }
+  .logo {
+    position: absolute;
+    background-image: url('../../public/images/7.png');
+    background-repeat: no-repeat;
+    height: 110px;
+    width: 250px;
+    transform: scale(0.8);
+   
+  }
+  .menu {
+    margin-top: 80px; 
+    display: block;
+    padding: 10px; /* Increase item size */
+    font-size: 18px; /* Increase item text size */
+    font-family: 'Anybody', cursive;
+  }
+  .header{
+    font-family: 'Bangers', cursive;
+    font-size: 30px;
+    
+  }
+  .icons{
+  padding-left: 25px;
+  }
+
+ 
