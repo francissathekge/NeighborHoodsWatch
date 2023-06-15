@@ -13,6 +13,8 @@ import {
 } from '@ant-design/icons';
 import { FaAmazonPay } from "react-icons/fa";
 import Logout from '../logout';
+import Donation from '../../pages/donation';
+import PatrolsTable from '../../pages/patrols'
 
 const { Header, Sider, Content } = Layout;
 
@@ -98,8 +100,8 @@ const Desh: React.FC = () => {
             background: colorBgContainer,
           }}
         >
-          {selectedKey === '1' && <div>Content for nav 1</div>}
-          {selectedKey === '2' && <div>Content for nav 2</div>}
+          {selectedKey === '1' && <div><Donation/></div>}
+          {selectedKey === '2' && <div><PatrolsTable /></div>}
           {selectedKey === '3' && <div>Content for nav 3</div>}
           {selectedKey === '4' && <div>Content for nav 4</div>}
           {selectedKey === '5' && <div>Content for nav 5</div>}

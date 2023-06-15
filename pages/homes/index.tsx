@@ -1,15 +1,15 @@
 import React from 'react'
-import Desh from '../../components/deshboard'
+import Header from '../../components/header'
 import Footer from '../../components/footer'
 
-function Deshboard() {
+function Homess() {
   return (
     <div>
-        <Desh/>
+        <Header/>
         <Footer/>
       
     </div>
   )
 }
 
-export default Deshboard
+export default Homess

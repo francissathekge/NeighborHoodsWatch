@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-const Com = () => {
+function PatrolsTable() {
   return (
     <div>
-
+      
     </div>
   )
 }
 
-export default Com
+export default PatrolsTable
