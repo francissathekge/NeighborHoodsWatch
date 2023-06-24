@@ -26,6 +26,16 @@
     .formContainer .ant-form-item {
       margin-bottom: 16px;
     }
+    .icon {
+      margin-right: 15px; /* Adjust the value to add desired space */
+      font-size: 24px; /* Adjust the value to increase the icon size */
+      transition: color 0.3s, transform 0.3s;
+    }
+    
+    .icon:hover {
+      color: blue;
+      transform: scale(1.5);
+    }
     
     @media (max-width: 768px) {
       .formBackground {

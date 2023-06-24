@@ -25,7 +25,7 @@ export interface IRewardsStateContext {
 export interface IRewardsActionContext {
   getReward?: () => void;
   getRewardId?: (id: number) => void;
-  createReward?: (payload: IRewards) => void;
+  createReward?: (payload: FormData) => void;
   deleteReward?: (payload: string) => void;
   updateReward?: (payload: IRewards) => void;
   searchReward?: (payload: string) => void;

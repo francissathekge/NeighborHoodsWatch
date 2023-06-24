@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Button, DatePicker, Form, Input, Modal, Select, Space, Upload } from 'antd';
-import { InboxOutlined,UploadOutlined } from '@ant-design/icons';
+import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
+import { useRewards } from '../../providers/RewardProvider';
 import { useRouter } from 'next/router';
 
 const { Dragger } = Upload;
 const { Option } = Select;
 
 function IncidentButton() {
+  const { createReward } = useRewards();
   const router = useRouter();
   const [file, setFile] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -20,8 +22,10 @@ function IncidentButton() {
     formData.append('incidentType', values.incidentType);
     formData.append('rewardAmount', values.rewardAmount);
     formData.append('comment', values.comment);
+    createReward(formData);
     console.log('Received values of form: ', values);
-    // router.push('/homes');
+    form.resetFields();
+    handleConfirm();
   };
 
   const handleFileChange = (info) => {
@@ -38,19 +42,31 @@ function IncidentButton() {
   };
 
   const handleCancel = () => {
+    form.resetFields();
+    setIsModalVisible(false);
+  };
+
+  const handleConfirm = () => {
     setIsModalVisible(false);
   };
 
   return (
     <div>
       <Button type="primary" onClick={showConfirmationModal}>
-      <UploadOutlined />
+        <UploadOutlined />
       </Button>
       <Modal
-        title="Incident Form"
+        title="Reward Form"
         visible={isModalVisible}
         onCancel={handleCancel}
-        footer={null}
+        footer={[
+          <Button key="cancel" onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="submit" type="primary" onClick={form.submit}>
+            Submit
+          </Button>,
+        ]}
       >
         <Form form={form} onFinish={onFinish}>
           <Form.Item
@@ -98,13 +114,6 @@ function IncidentButton() {
             rules={[{ required: true, message: 'Please enter a comment' }]}
           >
             <Input.TextArea placeholder="Comment" />
-          </Form.Item>
-          <Form.Item>
-            <Space size="middle" direction="horizontal" align="end">
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
-            </Space>
           </Form.Item>
         </Form>
       </Modal>

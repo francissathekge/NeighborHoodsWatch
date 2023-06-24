@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input, Button } from 'antd';
+import { Table, Input, Button, Modal, message, Popconfirm } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { usePatrols } from '../../providers/PatrolProvider';
-import { ExportOutlined, DeleteOutlined } from '@ant-design/icons';
+import { usePersons } from '../../providers/PersonProvider';
+import styles from './patrols.module.css';
+import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import { IPatrols } from '../../providers/PatrolProvider/context';
 import moment from 'moment';
 
 const { Search } = Input;
 
 function PatrolsTable() {
-  const { getPatrol, getPatrols } = usePatrols();
+  const { getPersonById, getPersonsById } = usePersons();
+  const { getPatrol, getPatrols, deletePatrol } = usePatrols();
   const [sortedInfo, setSortedInfo] = useState<{ columnKey: string; order: string } | null>(null);
   const [searchText, setSearchText] = useState('');
+  const [selectedPatrol, setSelectedPatrol] = useState<IPatrols | null>(null);
+  const [selectedPerson, setSelectedPerson] = useState({}); // 'any' type can be replaced with a more specific type if available
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getPatrol();
+    setSelectedPerson(getPersonsById);
   }, []);
+
+  console.log("jkadhsjk",getPersonsById)
 
   const handleChange = (pagination: any, filters: any, sorter: any) => {
     setSortedInfo(sorter);
@@ -23,6 +32,29 @@ function PatrolsTable() {
 
   const handleSearch = (value: string) => {
     setSearchText(value);
+  };
+
+  const handleViewDetails = (record: IPatrols) => {
+    setSelectedPatrol(record);
+    setShowModal(true);
+
+    const personId = record.personId;
+
+    getPersonById(personId)
+    console.log(personId)
+   
+  };
+  const handleDelete = async (patrolId: string) => {
+    try {
+      await deletePatrol(patrolId);
+      message.success('Patrol deleted successfully.');
+    } catch (error) {
+      message.error('Failed to delete the patrol.');
+    }
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
   };
 
   const filteredData = getPatrols.items.filter(
@@ -73,8 +105,15 @@ function PatrolsTable() {
       key: 'actions',
       render: (record: IPatrols) => (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <ExportOutlined />
-          <DeleteOutlined />
+          <SearchOutlined className={styles.view} onClick={() => handleViewDetails(record)} />
+          <Popconfirm
+            title="Are you sure you want to delete this reward?"
+            onConfirm={() => handleDelete(record?.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined className={styles.delete} />
+          </Popconfirm>
         </div>
       ),
     },
@@ -82,7 +121,6 @@ function PatrolsTable() {
 
   return (
     <div style={{ textAlign: 'right' }}>
-      {/* <h1>Patrols</h1> */}
       <Search
         placeholder="Search by Location"
         onSearch={handleSearch}
@@ -98,6 +136,65 @@ function PatrolsTable() {
         bordered
         onChange={handleChange}
       />
+      {selectedPatrol && (
+        <Modal
+          visible={showModal}
+          title="Patrol Details"
+          onCancel={handleModalClose}
+          footer={[
+            <Button key="close" onClick={handleModalClose}>
+              Close
+            </Button>,
+          ]}
+        >
+          <p>
+            <strong>Period: </strong>
+            {selectedPatrol.period}
+          </p>
+          <p>
+            <strong>Location: </strong>
+            {selectedPatrol.location}
+          </p>
+          <p>
+            <strong>No. of Guards: </strong>
+            {selectedPatrol.noOfGuards}
+          </p>
+          <p>
+            <strong>Start Time: </strong>
+            {moment(selectedPatrol.startTime).format('YYYY-MM-DD HH:mm:ss')}
+          </p>
+          <p>
+            <strong>End Time: </strong>
+            {moment(selectedPatrol.endTime).format('YYYY-MM-DD HH:mm:ss')}
+          </p>
+          <p>
+            <strong>Amount: </strong>
+            {selectedPatrol.amount}
+          </p>
+          {selectedPerson && (
+            <div>
+              <h3>Person Information:</h3>
+              <p>
+                <strong>User Name:</strong> {selectedPerson.userName}
+              </p>
+              <p>
+                <strong>Name:</strong> {selectedPerson.name}
+              </p>
+              <p>
+                <strong>Surname:</strong> {selectedPerson.surname}
+              </p>
+              <p>
+                <strong>Phone Number:</strong> {selectedPerson.phoneNumber}
+              </p>
+              <p>
+                <strong>Email Address:</strong> {selectedPerson.emailAddress}
+                <strong>Street:</strong> {selectedPerson.address.street}
+              </p>
+              {/* Display other person information properties as needed */}
+            </div>
+          )}
+        </Modal>
+      )}
     </div>
   );
 }

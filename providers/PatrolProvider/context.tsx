@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export interface IPatrols {
   period: number;
   noOfGuards: number;
+  personId: string;
   location: string;
   amount: number;
   startTime: Date;

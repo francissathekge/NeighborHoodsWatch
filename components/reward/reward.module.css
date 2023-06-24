@@ -1,0 +1,38 @@
+.uploadIcon {
+    font-size: 24px; /* Adjust the size as needed */
+    text-align: left; 
+    position: relative;
+    top: 35px;
+
+  }
+  .uploadIcon:hover {
+   color: blue;
+
+  }
+  .delete {
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .delete:hover {
+    color: red;
+    transform: scale(1.9);
+  }
+  .share {
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .share:hover {
+    color: blue;
+    transform: scale(1.9);
+  }
+  .icon {
+    margin-right: 15px; /* Adjust the value to add desired space */
+    font-size: 24px; /* Adjust the value to increase the icon size */
+    transition: color 0.3s, transform 0.3s;
+  }
+  
+  .icon:hover {
+    color: blue;
+    transform: scale(1.5);
+  }
+  

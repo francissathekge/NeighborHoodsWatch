@@ -24,7 +24,7 @@ const RewardsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 
   const getReward = () => getRewardsHttp();
 
-  const createReward = async (payload: IRewards) => {
+  const createReward = async (payload: FormData) => {
     console.log("payload:", payload);
     try {
       const response = await createRewardHttp(payload);
@@ -32,6 +32,7 @@ const RewardsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
       if (response.success) {
         message.success("Reward successfully created");
         dispatch(createRewardsRequestAction(response.result));
+        getReward();
       } else {
         message.error("Failed to create reward");
       }
@@ -47,9 +48,21 @@ const RewardsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
   };
 
   const deleteReward = async (rewardId: string) => {
-    // Delete the reward with the given ID
-    // ...
+    await fetch(`https://localhost:44311/api/services/app/Reward/Delete?Id=${rewardId}`, {
+      method: 'DELETE',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      res.json().then((data) => {
+        dispatch(deleteRewardsRequestAction(rewardId));
+        getReward();
+        // message.success('Reward deleted successfully.');
+      });
+    });
   };
+  
 
   const updateReward = async (reward: IRewards) => {
     // Update the reward

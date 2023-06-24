@@ -59,7 +59,6 @@ function DonationsTable() {
       render: (record: IDonations) => (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           {/* Render actions */}
-          <ExportOutlined />
           <DeleteOutlined />
         </div>
       ),

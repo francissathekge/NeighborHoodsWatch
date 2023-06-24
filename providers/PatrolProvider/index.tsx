@@ -67,8 +67,8 @@ const PatrolsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
         }
       };
     
-      const deletePatrol = async (movieId: string) => {
-        await fetch(`https://localhost:44311/api/services/app/Movie/Delete?Id=${movieId}`, {
+      const deletePatrol = async (patrolId: string) => {
+        await fetch(`https://localhost:44311/api/services/app/PatrollingRequest/Delete?Id=${patrolId}`, {
           method: 'DELETE',
           cache: 'no-cache',
           headers: {
@@ -76,11 +76,13 @@ const PatrolsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
           },
         }).then(res => {
           res.json().then(data => {
-            dispatch(deletePatrolsRequestAction(movieId));
-            message.success('Movie deleted successfully.');
+            dispatch(deletePatrolsRequestAction(patrolId));
+            getPatrol();
+            // message.success('Patrol deleted successfully.');
           });
         });
       };
+      
     
       const updatePatrol = async (movie: IPatrols) => {
         const token = localStorage.getItem('token');

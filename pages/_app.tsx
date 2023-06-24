@@ -7,6 +7,7 @@ import { IncidentsProvider } from "../providers/IncidentProvider";
 import { ForumsProvider } from "../providers/ForumProvider";
 import { DonationsProvider } from "../providers/DonationProvider";
 import { RewardsProvider } from "../providers/RewardProvider";
+import { PersonsProvider } from "../providers/PersonProvider";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -35,7 +36,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             <ForumsProvider>
               <DonationsProvider>
                 <RewardsProvider>
-                  <Component {...pageProps} />
+                  <PersonsProvider>
+                    <Component {...pageProps} />
+                  </PersonsProvider> 
                 </RewardsProvider>
               </DonationsProvider>
             </ForumsProvider>
