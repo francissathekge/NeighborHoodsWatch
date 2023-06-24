@@ -1,15 +1,25 @@
 import { createContext } from 'react';
 
 export interface IUser {
-    userName: string,
-    name: string,
-    surname: string,
-    phoneNumber: string,
-    emailAddress: string,
-    password: string,
-    id: string,
-   
-}
+    id: string;
+    userName: string;
+    name: string;
+    surname: string;
+    phoneNumber: string;
+    emailAddress: string;
+    password: string;
+    address: IAddress;
+  }
+  
+  export interface IAddress {
+    street: string;
+    town: string;
+    city: string;
+    province: string;
+    postalCode: string;
+  }
+  
+  
 
 
 export interface ILogin{
@@ -27,6 +37,8 @@ export interface IUserStateContext {
     readonly UserLogOut?:IUser;
     readonly currentUser?: IUser;
     readonly user?: IUser;
+    readonly userId?: number;
+    
     
 }
 
@@ -36,6 +48,7 @@ export interface IUserActionContext{
     logOutUser?:() => void;
     setCurrentUser?:(user:IUser) => void;
     getUserDetails?:(id:number) => void
+    setUserId?: (userId: number) => void;
 }
 
 const UserContext = createContext<IUserStateContext>(INITIAL_STATE);

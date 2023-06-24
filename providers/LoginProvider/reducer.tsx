@@ -16,6 +16,8 @@ export function UserReducer(incomingState: IUserStateContext, action: ReduxActio
             return { ...incomingState, ...payload };
         case UserActionEnum.getUserDetailsRequest:
             return { ...incomingState, ...payload };
+            case UserActionEnum.getUserIdDetailsRequest:
+                return { ...incomingState, ...payload };
         default:
             return incomingState;
     }

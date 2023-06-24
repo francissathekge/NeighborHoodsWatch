@@ -1,6 +1,6 @@
 import  React from 'react';
 import { createAction } from 'redux-actions';
-import { IPatrols, IPatrolsStateContext} from './context';
+import { IPatrols,generalPatrolsProps, IPatrolsStateContext} from './context';
 
 export enum PatrolsActionEnum{
     getPatrolsRequest = 'GET',
@@ -12,7 +12,7 @@ export enum PatrolsActionEnum{
   
 }
 
-export const getPatrolsRequestAction = createAction<IPatrolsStateContext, IPatrols[]>(PatrolsActionEnum.getPatrolsRequest ,(getPatrols)=>({getPatrols}))
+export const getPatrolsRequestAction = createAction<IPatrolsStateContext, generalPatrolsProps>(PatrolsActionEnum.getPatrolsRequest ,(getPatrols)=>({getPatrols}))
 export const createtPatrolsRequestAction = createAction<IPatrolsStateContext, IPatrols>(PatrolsActionEnum.createPatrolsRequest ,(createPatrols)=>({createPatrols}))
 export const getPatrolsIdRequestAction = createAction<IPatrolsStateContext, number>(PatrolsActionEnum.getPatrolsIdRequest,(Id)=>({}))
 export const deletePatrolsRequestAction = createAction<IPatrolsStateContext, string>(PatrolsActionEnum.deletePatrolsRequest,(deletePatrolsId)=>({deletePatrols: deletePatrolsId}));

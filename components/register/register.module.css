@@ -9,7 +9,6 @@
   
   .loginbox {
     position: relative;
-    right: 100px;
     background-color: transparent;
     border-radius: 5px;
     padding: 20px;
@@ -68,5 +67,9 @@
     position: relative;
     bottom: 320px;
     right: 400px;
+  }
+  .address{
+    display: flex;
+    
   }
   

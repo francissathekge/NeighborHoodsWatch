@@ -13,7 +13,6 @@
 
   .loginbox {
     position: relative;
-    right: 130px;
     background-color: transparent;
     border-radius: 5px;
     padding: 20px;
@@ -44,7 +43,6 @@
   
   .registerbox {
     position: relative;
-    right: 100px;
     background-color: transparent;
     border-radius: 5px;
     padding: 20px;

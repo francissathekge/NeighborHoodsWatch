@@ -1,0 +1,10 @@
+.logouticon {
+    position:"relative";
+    bottom:"400px";
+    border: none;
+    transition: background-color 0.3s;
+  }
+  .buttons{
+    Display: flex;
+    justify-content: space-between;
+  }

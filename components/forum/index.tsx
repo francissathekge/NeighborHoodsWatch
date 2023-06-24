@@ -1,81 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { Button, List, Form, Input } from 'antd';
+import { Button, Form, Input, List, Modal } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { useForums } from '../../providers/ForumProvider';
 import styles from './forum.module.css';
 import moment from 'moment';
-import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const { TextArea } = Input;
+const { confirm } = Modal;
 
 const CommentSection = () => {
+  const router = useRouter();
+  const { getForum, getForums, createForum, deleteForum } = useForums();
+  const [form] = Form.useForm();
   const [comments, setComments] = useState([]);
-  const [commentContent, setCommentContent] = useState('');
-
-  const loadComments = async () => {
-    const response = await axios.get('https://localhost:44311/api/services/app/Forum/GetAll');
-    setComments(response.data.result.items); // Assuming the comments are nested within the 'result' property
-  };
-
+  console.log('Form values:', getForums);
   useEffect(() => {
-    loadComments();
+    getForum();
   }, []);
 
-  const handleCommentSubmit = async () => {
-    try {
-      const response =await axios.post('https://localhost:44311/api/services/app/Forum/Create',
-      {content:commentContent},
-      {headers: {'Content-Type': 'application/json'}}
-      );
-      const newCommentContenet = response.data.result;
-      setCommentContent('');
-      console.log("new comment", commentContent);
-    }
-    catch(error){
-      console.log(error)
-    }
+  const handleSubmit = (values) => {
+    createForum(values);
+    form.resetFields();
+    console.log('Form values:', values);
   };
-  
-  
 
-  const handleCommentDelete = async (commentId) => {
-    await axios.delete(`https://localhost:44311/api/services/app/Forum/Delete/${commentId}`);
+  const handleDelete = (commentId) => {
+    confirm({
+      title: 'Delete Confirmation',
+      content: 'Are you sure you want to delete this comment?',
+      onOk() {
+        deleteForum(commentId)
+      },
+      onCancel() {},
+    });
+  };
 
-    loadComments();
+  const item = getForums?.items;
+
+  const handleCancel = () => {
+    confirm({
+      title: 'Cancel Confirmation',
+      content: 'Are you sure you want to cancel? Your entered data will be cleared.',
+      onOk() {
+        form.resetFields();
+        router.push('/homes');
+      },
+      onCancel() {},
+    });
   };
 
   return (
-    <div className={styles.formContainers}>
     <div className={styles.formContainer}>
-      <List
-        header={`${comments.length} comments`}
-        dataSource={comments}
-        renderItem={(comment) => (
-          <List.Item>
-            <List.Item.Meta
-              title={comment.personId}
-              description={comment.content}
-            />
-            <div>{moment(comment.creationTime).fromNow()}</div>
-            <Button
-              type="link"
-              onClick={() => handleCommentDelete(comment.id)}
-            >
-              Delete
-            </Button>
-          </List.Item>
-        )}
-      />
-      <Form>
-        <Form.Item>
-          <TextArea
-            rows={4}
-            placeholder="Write a comment..."
-            value={commentContent}
-            onChange={(e) => setCommentContent(e.target.value)}
-          />
+    <div className={styles.formContainers}>
+      <h1>Comment Section</h1>
+      <div>
+        <List
+          header={`${item?.length || 0} Comments`}
+          dataSource={item}
+          renderItem={(comment) => (
+            <List.Item>
+              <List.Item.Meta title={'Anonymous tip off'} description={comment.content} />
+              <div>{moment(comment.createdTime).fromNow()}</div>
+              <Button type="link" onClick={() => handleDelete(comment.id)}><DeleteOutlined /></Button>
+            </List.Item>
+          )}
+        />
+      </div>
+      <Form form={form} onFinish={handleSubmit} layout="vertical">
+        <Form.Item name="content" label="Content">
+          <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" onClick={handleCommentSubmit} type="primary">
-            Add Comment
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+          <Button type="default" onClick={handleCancel} style={{ marginLeft: 8 }}>
+            Cancel
           </Button>
         </Form.Item>
       </Form>

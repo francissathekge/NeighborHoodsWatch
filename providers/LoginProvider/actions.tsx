@@ -8,6 +8,7 @@ export enum UserActionEnum{
     logOutUserRequest = 'LOGOUT',
     setCurrentUserRequest = 'SET_CURRENT_USER',
     getUserDetailsRequest='GET_USER',
+    getUserIdDetailsRequest = 'GET_USER_ID',
 }
 
 export const loginUserRequestAction = createAction<IUserStateContext, ILogin>(UserActionEnum.loginUserRequest,(UserLogin)=>({UserLogin}))
@@ -15,3 +16,4 @@ export const createUserRequestAction = createAction<IUserStateContext, IUser>(Us
 export const logOutUserRequestAction = createAction<IUserStateContext>(UserActionEnum.logOutUserRequest,()=>({}))
 export const setCurrentUserRequestAction = createAction<IUserStateContext, IUser>(UserActionEnum.setCurrentUserRequest,(currentUser)=>({currentUser}))
 export const getUserDetailsRequestAction = createAction<IUserStateContext, number>(UserActionEnum.getUserDetailsRequest,(id)=>({}))
+export const getUserIdDetailsRequestAction = createAction<IUserStateContext, number>(UserActionEnum.getUserIdDetailsRequest, (userId) => ({ userId }));

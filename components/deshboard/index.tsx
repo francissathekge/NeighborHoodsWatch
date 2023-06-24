@@ -9,12 +9,17 @@ import {
   SafetyOutlined,
   UserOutlined,
   NotificationOutlined,
-  LogoutOutlined,
+  HeartOutlined ,
+  MessageOutlined,
 } from '@ant-design/icons';
 import { FaAmazonPay } from "react-icons/fa";
 import Logout from '../logout';
 import Donation from '../../pages/donation';
 import PatrolsTable from '../../pages/patrols'
+import Incidentss from '../../pages/incidents';
+import Profiles from '../../pages/profile';
+import Donnationss from '../../pages/donations';
+import Reward from '../../pages/reward';
 
 const { Header, Sider, Content } = Layout;
 
@@ -60,11 +65,16 @@ const Desh: React.FC = () => {
             },
             {
               key: '4',
-              icon: <FaAmazonPay />,
-              label: 'Payments',
+              icon: <HeartOutlined />,
+              label: 'Donations',
             },
             {
               key: '5',
+              icon: <MessageOutlined />,
+              label: 'Rewards',
+            },
+            {
+              key: '6',
               icon: <UserOutlined />,
               label: 'Profile',
             },
@@ -102,9 +112,10 @@ const Desh: React.FC = () => {
         >
           {selectedKey === '1' && <div><Donation/></div>}
           {selectedKey === '2' && <div><PatrolsTable /></div>}
-          {selectedKey === '3' && <div>Content for nav 3</div>}
-          {selectedKey === '4' && <div>Content for nav 4</div>}
-          {selectedKey === '5' && <div>Content for nav 5</div>}
+          {selectedKey === '3' && <div><Incidentss/></div>}
+          {selectedKey === '4' && <div><Donnationss/></div>}
+          {selectedKey === '5' && <div><Reward/></div>}
+          {selectedKey === '6' && <div><Profiles/></div>}
      
         </Content>
       </Layout>

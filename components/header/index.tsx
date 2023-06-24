@@ -3,6 +3,7 @@ import styles from './header.module.css';
 import { Menu, Drawer } from 'antd';
 import { MenuOutlined } from "@ant-design/icons";
 import Link from 'next/link';
+import App from '../drawers';
 
 function AppMenu({ isInline = false }) {
   return (
@@ -24,14 +25,14 @@ function AppMenu({ isInline = false }) {
         <Menu.Item key="rewards">
           <Link href="/rewards">Rewards</Link>
         </Menu.Item>
-        <Menu.Item key="about-us">
-          <Link href="/about-us">About Us</Link>
+        <Menu.Item key="forum">
+          <Link href="/forum">Forum</Link>
         </Menu.Item>
         <Menu.Item key="fund-us">
           <Link href="/donation">Fund Us</Link>
         </Menu.Item>
         <Menu.Item key="account">
-          <Link href="/account">Account</Link>
+          <Link href=""><App/></Link>
         </Menu.Item>
       </Menu>
     </div>

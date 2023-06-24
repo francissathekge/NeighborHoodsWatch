@@ -71,7 +71,7 @@ const Login = () => {
       )}
       {registerMode && (
         <div className={styles.registerbox}>
-          <h2 className="bend-text">Register</h2>
+          <h2 className="bend-text"></h2>
           <Register onFormSwitch={() => setRegisterMode(false)} />
         </div>
       )}

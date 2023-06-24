@@ -3,56 +3,45 @@ import { PatrolsReducer } from './reducer';
 import { INITIAL_STATE, IPatrols, PatrolActionContext, PatrolContext } from './context';
 import { getPatrolsRequestAction, getPatrolsIdRequestAction, deletePatrolsRequestAction, updatePatrolsRequestAction, createtPatrolsRequestAction, searchPatrolsRequestAction } from './actions';
 import { message } from 'antd';
+import { useGet, useMutate } from 'restful-react';
 
 
-const PatrolsProvider = ({ children }) => {
+const PatrolsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
     const [state, dispatch] = useReducer(PatrolsReducer, INITIAL_STATE);
 
-    const getPatrol = async () => {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://localhost:44311/api/services/app/PatrollingRequest/GetAll', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
+    const { data: patrolsData, refetch: getPatrolsHttp } = useGet({
+      path: 'PatrollingRequest/GetAll',
+    });
+    const { mutate: createPatrolHttp } = useMutate({
+      path: 'PatrollingRequest/Create',
+      verb: 'POST',
+    });
     
-        if (response.ok) {
-          const data = await response.json();
-          dispatch(getPatrolsRequestAction(data.result));
-          console.log("Fetch",data.result);
-        } else if (response.status === 401) {
-          // Unauthorized access
-          message.error('Unauthorized access. Please log in again.');
-          window.location.href = '/login';
-        } else {
-          // Other errors
-          message.error('Failed to fetch movies.');
-        }
-      };
+    useEffect(() => {
+      if (patrolsData) {
+        dispatch(getPatrolsRequestAction(patrolsData.result));
+      }
+    }, [patrolsData, dispatch]);
+    
+    const getPatrol = () => getPatrolsHttp();
 
-      const createPatrol= async (movieRegInfo: IPatrols) => {
-        const token = localStorage.getItem("token");
-        await fetch('https://localhost:44311/api/services/app/Movie/Create', {
-            method: 'POST',
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer  ${token}`
-            },
-            body: JSON.stringify(movieRegInfo)
-        }).then(res => {
-            res.json().then(data => {
-                dispatch(createtPatrolsRequestAction(movieRegInfo));
-                message.success("movie registration successfull")
-             
-            })
-            .catch(error => {
-                message.error("movie was not registration successfull", error);
-            })
-        })
-    }
+
+    const createPatrol = async (payload: IPatrols) => {
+      console.log("payload:", payload);
+      try {
+        const response = await createPatrolHttp(payload);
+        console.log("response:", response);
+        if (response.success) {
+          message.success("Patrol successfully created");
+          dispatch(createtPatrolsRequestAction(response.result));
+        } else {
+          message.error("Failed to create ptrol");
+        }
+      } catch (error) {
+        console.error("Patrol creation error:", error);
+        message.error("An error occurred during patrol creation");
+      }
+    };
 
     
       const getPatrolId = async (id: number) => {

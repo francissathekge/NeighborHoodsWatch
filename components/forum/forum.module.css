@@ -1,34 +1,35 @@
-.formContainer {
-    width: 200%;
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 5px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.553);
+/* .formContainer {
+  width: 200%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.553);
+} */
+
+.formContainers {
+  /* background-image: url('../../public/images/1.jpg');  */
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 78px;
+  margin-bottom: 35px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.143);
+  box-shadow: 0 0px 4px rgba(0, 118, 236, 0.535)
+}
+
+.formContainer .ant-form-item {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .formBackground {
+    background-image: url('../../public/images/1.jpg'); /* Replace 'path/to/your/mobile-image.jpg' with the actual path to your mobile image file */
   }
-  
-  .formContainers {
-    background-image: url('../../public/images/1.jpg'); /* Replace 'path/to/your/image.jpg' with the actual path to your image file */
-    width: 400%;
-    max-width: 800px;
-    margin: 0 auto;
-    margin-top: 78px;
-    margin-bottom: 35px;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.073);
+
+  .formContainer {
+    max-width: 100%;
+    padding: 10px;
   }
-  
-  .formContainer .ant-form-item {
-    margin-bottom: 16px;
-  }
-  
-  @media (max-width: 768px) {
-    .formBackground {
-      background-image: url('../../public/images/1.jpg'); /* Replace 'path/to/your/mobile-image.jpg' with the actual path to your mobile image file */
-    }
-  
-    .formContainer {
-      max-width: 100%;
-      padding: 10px;
-    }
-  }
+}
