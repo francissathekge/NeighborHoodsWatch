@@ -13,9 +13,7 @@ export function DonationsReducer(
     case DonationsActionEnum.createDonationRequest:
       return { ...incomingState, ...payload };
     case DonationsActionEnum.deleteDonationRequest:
-      const { deleteDonations } = payload;
-      const filtered = [...incomingState.getDonations].filter(({ id }) => id !== deleteDonations);
-      return { ...incomingState, getDonations: [...filtered] };
+      return { ...incomingState, ...payload };
     default:
       return incomingState;
   }

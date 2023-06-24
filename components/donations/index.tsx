@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input } from 'antd';
+import { Table, Input, message, Popconfirm } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import styles from './donations.module.css';
 import { ExportOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useDonations } from '../../providers/DonationProvider';
 import { IDonations } from '../../providers/DonationProvider/context';
@@ -8,7 +9,7 @@ import { IDonations } from '../../providers/DonationProvider/context';
 const { Search } = Input;
 
 function DonationsTable() {
-  const { getDonation, getDonations } = useDonations();
+  const { getDonation, getDonations, deleteDonation } = useDonations();
   const [sortedInfo, setSortedInfo] = useState<{ columnKey: string; order: string } | null>(null);
   const [searchText, setSearchText] = useState('');
 
@@ -19,6 +20,15 @@ function DonationsTable() {
   const handleChange = (pagination: any, filters: any, sorter: any) => {
     setSortedInfo(sorter);
   };
+  const handleDelete = async (donationId: string) => {
+    try {
+      await deleteDonation(donationId);
+      message.success('Donation deleted successfully.');
+    } catch (error) {
+      message.error('Failed to delete the donation.');
+    }
+  };
+  
 
   const handleSearch = (value: string) => {
     setSearchText(value);
@@ -59,7 +69,14 @@ function DonationsTable() {
       render: (record: IDonations) => (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           {/* Render actions */}
-          <DeleteOutlined />
+          <Popconfirm
+            title="Are you sure you want to delete this donation?"
+            onConfirm={() => handleDelete(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined className={styles.delete} />
+          </Popconfirm>
         </div>
       ),
     },

@@ -52,7 +52,8 @@ const DonationsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
     }).then((res) => {
       res.json().then((data) => {
         dispatch(deleteDonationRequestAction(donationId));
-        message.success('Donation deleted successfully.');
+        getDonation();
+        // message.success('Donation deleted successfully.');
       });
     });
   };

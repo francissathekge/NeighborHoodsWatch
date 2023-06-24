@@ -107,7 +107,7 @@ function PatrolsTable() {
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <SearchOutlined className={styles.view} onClick={() => handleViewDetails(record)} />
           <Popconfirm
-            title="Are you sure you want to delete this reward?"
+            title="Are you sure you want to delete this patrol?"
             onConfirm={() => handleDelete(record?.id)}
             okText="Yes"
             cancelText="No"
