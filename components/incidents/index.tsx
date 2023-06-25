@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input } from 'antd';
+import { Table, Input, Popconfirm, message } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { ExportOutlined, DeleteOutlined } from '@ant-design/icons';
+import { SearchOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useIncidents } from '../../providers/IncidentProvider';
+import styles from './incidents.module.css';
 import { IIncidents } from '../../providers/IncidentProvider/context';
 import moment from 'moment';
 
 const { Search } = Input;
 
 function IncidentsTable() {
-  const { getIncident, getIncidents } = useIncidents();
+  const { getIncident, getIncidents, deleteIncident } = useIncidents();
   const [sortedInfo, setSortedInfo] = useState<{ columnKey: string; order: string } | null>(null);
   const [searchText, setSearchText] = useState('');
 
@@ -24,6 +25,15 @@ function IncidentsTable() {
   const handleSearch = (value: string) => {
     setSearchText(value);
   };
+  const handleDelete = async (incidentId: string) => {
+    try {
+      await deleteIncident(incidentId);
+      message.success('Incident deleted successfully.');
+    } catch (error) {
+      message.error('Failed to delete the incident.');
+    }
+  };
+  
 
   const filteredData = getIncidents.items.filter(
     (item) =>
@@ -60,8 +70,15 @@ function IncidentsTable() {
       key: 'actions',
       render: (record: IIncidents) => (
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-          <ExportOutlined />
-          <DeleteOutlined />
+          <SearchOutlined className={styles.view} />
+          <Popconfirm
+            title="Are you sure you want to delete this incident?"
+            onConfirm={() => handleDelete(record?.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined className={styles.delete} />
+          </Popconfirm>
         </div>
       ),
     },

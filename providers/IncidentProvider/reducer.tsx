@@ -15,13 +15,9 @@ export function IncidentsReducer(
     case IncidentsActionEnum.getIncidentsIdRequest:
       return { ...incomingState, ...payload };
     case IncidentsActionEnum.deleteIncidentsRequest:
-      const { deleteIncidents } = payload;
-      const filtered = [...incomingState.getIncidents].filter(({ id }) => id !== deleteIncidents);
-      return { ...incomingState, getIncidents: [...filtered] };
+      return { ...incomingState, ...payload };
     case IncidentsActionEnum.updateIncidentsRequest:
-      const { updateIncidents } = payload;
-      const filters = [...incomingState.getIncidents].filter(({ id }) => id !== updateIncidents.id);
-      return { ...incomingState, getIncidents: [...filters, updateIncidents] };
+      return { ...incomingState, ...payload };
     case IncidentsActionEnum.searchIncidentsRequest:
       return {
         ...incomingState,

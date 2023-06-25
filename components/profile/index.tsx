@@ -60,7 +60,7 @@ function UserForm() {
       <Title level={4}>Administration Details</Title>
       {currentUser && (
         <div>
-         <Title level={4}>Personal</Title>
+         <Title level={4} style={{ color: 'blue' }}>Personal Details</Title>
           <Row>
           <Col span={12}>
             <DescriptionItem title="Username"  content={`${currentUser.userName}`} />
@@ -75,7 +75,7 @@ function UserForm() {
           </Col>
         </Row>
           <Divider />
-          <Title level={4}>Contact</Title>
+          <Title level={4} style={{ color: 'blue' }}>Contact</Title>
           <Row>
           <Col span={12}>
             <DescriptionItem title="Phone Number"  content="083 855 6556" />
@@ -93,7 +93,7 @@ function UserForm() {
           {currentUser.address && (
             <div>
               
-              <Title level={2}>Address</Title>
+              <Title level={2} style={{ color: 'blue' }}>Address</Title>
               <Divider />
               {/* <Text strong>ID:</Text>
               <Text>{currentUser.address.id}</Text> */}
@@ -114,7 +114,7 @@ function UserForm() {
             </div>
           )}
           <Divider />
-          <Title level={4}>Roles</Title>
+          <Title level={4} style={{ color: 'blue' }}>Roles</Title>
           {currentUser.roleNames.length > 0 ? (
             currentUser.roleNames.map((roleName, index) => (
               <Text key={index}>{roleName}</Text>

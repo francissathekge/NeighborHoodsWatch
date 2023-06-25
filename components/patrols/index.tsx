@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Input, Button, Modal, message, Popconfirm } from 'antd';
+import { Table, Input, Modal, message, Popconfirm, Col, Row, Button, Typography, Divider } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { usePatrols } from '../../providers/PatrolProvider';
 import { usePersons } from '../../providers/PersonProvider';
@@ -9,6 +9,20 @@ import { IPatrols } from '../../providers/PatrolProvider/context';
 import moment from 'moment';
 
 const { Search } = Input;
+
+interface DescriptionItemProps {
+  title: string;
+  content: React.ReactNode;
+}
+
+const DescriptionItem = ({ title, content }: DescriptionItemProps) => (
+  <div className="site-description-item-profile-wrapper">
+    <p className="site-description-item-profile-p-label">{title}:</p>
+    {content}
+  </div>
+);
+
+const { Title, Text } = Typography;
 
 function PatrolsTable() {
   const { getPersonById, getPersonsById } = usePersons();
@@ -139,7 +153,7 @@ function PatrolsTable() {
       {selectedPatrol && (
         <Modal
           visible={showModal}
-          title="Patrol Details"
+          title={<div style={{ color: 'blue' }}>Patrol Details</div>}
           onCancel={handleModalClose}
           footer={[
             <Button key="close" onClick={handleModalClose}>
@@ -147,50 +161,80 @@ function PatrolsTable() {
             </Button>,
           ]}
         >
-          <p>
-            <strong>Period: </strong>
-            {selectedPatrol.period}
-          </p>
-          <p>
-            <strong>Location: </strong>
-            {selectedPatrol.location}
-          </p>
-          <p>
-            <strong>No. of Guards: </strong>
-            {selectedPatrol.noOfGuards}
-          </p>
-          <p>
-            <strong>Start Time: </strong>
-            {moment(selectedPatrol.startTime).format('YYYY-MM-DD HH:mm:ss')}
-          </p>
-          <p>
-            <strong>End Time: </strong>
-            {moment(selectedPatrol.endTime).format('YYYY-MM-DD HH:mm:ss')}
-          </p>
-          <p>
-            <strong>Amount: </strong>
-            {selectedPatrol.amount}
-          </p>
+         <Row>
+          <Col span={12}>
+            <DescriptionItem title="Patrol Days"  content={`${selectedPatrol.period}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="No. of Guards" content={`${selectedPatrol.noOfGuards}`} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="Start Time"  content={`${moment(selectedPatrol.startTime).format('YYYY-MM-DD HH:mm:ss')}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="End Time" content={`${moment(selectedPatrol.endTime).format('YYYY-MM-DD HH:mm:ss')}`} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="Location"  content={`${selectedPatrol.location}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Amount" content={`${selectedPatrol.amount}`} />
+          </Col>
+        </Row>
+        <Divider />
           {selectedPerson && (
             <div>
-              <h3>Person Information:</h3>
-              <p>
-                <strong>User Name:</strong> {selectedPerson.userName}
-              </p>
-              <p>
-                <strong>Name:</strong> {selectedPerson.name}
-              </p>
-              <p>
-                <strong>Surname:</strong> {selectedPerson.surname}
-              </p>
-              <p>
-                <strong>Phone Number:</strong> {selectedPerson.phoneNumber}
-              </p>
-              <p>
-                <strong>Email Address:</strong> {selectedPerson.emailAddress}
-                <strong>Street:</strong> {selectedPerson.address.street}
-              </p>
-              {/* Display other person information properties as needed */}
+               <Title level={5} style={{ color: 'blue' }}>Person Information</Title>
+               <Row>
+          <Col span={12}>
+            <DescriptionItem title="Username"  content={`${selectedPerson.userName}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Full Name" content={`${selectedPerson.name}`} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="Surname"  content={`${selectedPerson.surname}`} />
+          </Col>
+        </Row>
+        <Divider />
+        <Title level={5} style={{ color: 'blue' }}>Contact</Title>
+          <Row>
+          <Col span={12}>
+            <DescriptionItem title="Phone Number"  content={`${selectedPerson.phoneNumber}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Email Address" content={`${selectedPerson.emailAddress}`} />
+          </Col>
+        </Row>
+        <Divider />
+        <Title level={5} style={{ color: 'blue' }}>Address</Title>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="Street"  content={`${selectedPerson.address.street}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Town" content={`${selectedPerson.address.town}`} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="City"  content={`${selectedPerson.address.city}`} />
+          </Col>
+          <Col span={12}>
+            <DescriptionItem title="Province" content={`${selectedPerson.address.province}`} />
+          </Col>
+        </Row>
+        <Row>
+          <Col span={12}>
+            <DescriptionItem title="Postal Code"  content={`${selectedPerson.address.postalCode}`} />
+          </Col>
+        </Row>
             </div>
           )}
         </Modal>

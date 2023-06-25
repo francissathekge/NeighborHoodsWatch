@@ -66,7 +66,7 @@ const IncidentsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
   };
 
   const deleteIncident = async (incidentId: string) => {
-    await fetch(`https://localhost:44311/api/services/app/Movie/Delete?Id=${incidentId}`, {
+    await fetch(`https://localhost:44311/api/services/app/Incident/Delete?Id=${incidentId}`, {
       method: 'DELETE',
       cache: 'no-cache',
       headers: {
@@ -75,7 +75,8 @@ const IncidentsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
     }).then((res) => {
       res.json().then((data) => {
         dispatch(deleteIncidentsRequestAction(incidentId));
-        message.success('Incident deleted successfully.');
+        getIncident();
+        // message.success('Incident deleted successfully.');
       });
     });
   };
@@ -125,6 +126,7 @@ const IncidentsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
         value={{
           getIncident,
           createIncident,
+          deleteIncident,
         }}
       >
         {children}

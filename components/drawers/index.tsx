@@ -88,7 +88,7 @@ const App: React.FC = () => {
       <div style={{ maxWidth: 600, margin: '0 auto' }}>
       {currentUser && (
         <div>
-         <Title level={4}>Personal</Title>
+         <Title level={4} style={{ color: 'blue' }}>Personal Details</Title>
           <Row>
           <Col span={12}>
             <DescriptionItem title="Username"  content={`${currentUser.userName}`} />
@@ -103,7 +103,7 @@ const App: React.FC = () => {
           </Col>
         </Row>
           <Divider />
-          <Title level={4}>Contact</Title>
+          <Title level={4} style={{ color: 'blue' }}>Contact</Title>
           <Row>
           <Col span={12}>
             <DescriptionItem title="Phone Number"  content={`${currentUser.phoneNumber}`} />
@@ -120,7 +120,7 @@ const App: React.FC = () => {
           <Text>{currentUser.id}</Text> */}
           {currentUser.address && (
             <div>
-              <Title level={4}>Address</Title>
+              <Title level={4} style={{ color: 'blue' }}>Address</Title>
           <Row>
           <Col span={12}>
             <DescriptionItem title="Street"  content={`${currentUser.address.street}`} />
@@ -145,7 +145,7 @@ const App: React.FC = () => {
             </div>
           )}
           <Divider />
-          <Title level={4}>Roles</Title>
+          <Title level={4} style={{ color: 'blue' }}>Roles</Title>
           {currentUser.roleNames.length > 0 ? (
             currentUser.roleNames.map((roleName, index) => (
               <Text key={index}>{roleName}</Text>

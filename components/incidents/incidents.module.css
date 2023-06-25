@@ -1,0 +1,16 @@
+.delete {
+  transition: color 0.3s, transform 0.3s;
+}
+
+.delete:hover {
+  color: red;
+  transform: scale(1.9);
+}
+.view {
+  transition: color 0.3s, transform 0.3s;
+}
+
+.view:hover {
+  color: blue;
+  transform: scale(1.9);
+}
